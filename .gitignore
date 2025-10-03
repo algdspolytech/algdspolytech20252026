@@ -1,0 +1,8 @@
+# Файлы проектов Visual Studio
+*.vcxproj
+*.filters
+*.user
+*.sln
+*.txt
+# Папки сборки
+x64
