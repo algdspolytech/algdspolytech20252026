@@ -1,8 +1,13 @@
-# Файлы проектов Visual Studio
+# пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Visual Studio
 *.vcxproj
 *.filters
 *.user
 *.sln
 *.txt
-# Папки сборки
+*.exe
+*.ilk
+*.obj
+*.pdb
+*.json
+# пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 x64
