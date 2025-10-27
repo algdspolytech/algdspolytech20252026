@@ -1,0 +1,16 @@
+
+Debug/
+Release/
+x64/
+bin/
+obj/
+
+.vs/
+*.vcxproj.user
+*.suo
+*.sln.docstates
+
+*.exe
+*.dll
+*.lib
+*.pdb
