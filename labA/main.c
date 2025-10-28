@@ -1,6 +1,12 @@
 #include "weather_journal.h"
 #include "data_parser.h"
 #include <stdio.h>
+#include <windows.h>
+
+void setup_console() {
+    SetConsoleOutputCP(65001);
+    SetConsoleCP(65001);
+}
 
 void show_welcome() {
     printf("=== Анализатор погодных данных ===\n");
@@ -36,6 +42,7 @@ void display_negative_temperatures(const WeatherJournal* journal) {
 }
 
 int main() {
+    setup_console();
     show_welcome();
 
     WeatherJournal* journal = WJ_create();
