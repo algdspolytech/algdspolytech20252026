@@ -64,9 +64,9 @@ int DP_read_data_file(WeatherJournal* journal, const char* filename) {
 
 const char* DP_get_error_text(int error_code) {
     switch (error_code) {
-    case ERROR_BAD_FORMAT: return "Некорректный формат строки";
-    case ERROR_BAD_DATE: return "Некорректная дата";
-    case ERROR_BAD_TEMP: return "Некорректная температура";
-    default: return "Неизвестная ошибка";
+    case ERROR_BAD_FORMAT: return "Invalid line format";
+    case ERROR_BAD_DATE: return "Invalid date";
+    case ERROR_BAD_TEMP: return "Invalid temperature";
+    default: return "Unknown error";
     }
 }
