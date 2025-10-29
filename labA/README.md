@@ -14,7 +14,7 @@ The program is implemented in C using a doubly linked list for storing
 climate data with automatic sorting on insertion.
 
 ### Project Structure:
-lab-A/
+labA/
  temp.h
  weather_journal.h
  weather_journal.c
