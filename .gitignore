@@ -1,0 +1,49 @@
+# === Visual Studio / Компиляция ===
+Debug/
+Release/
+x64/
+*.obj
+*.exe
+*.pdb
+*.ilk
+*.log
+*.tlog
+*.lastbuildstate
+
+# === Папки проекта ===
+.vs/
+bin/
+obj/
+Build/
+*.vcxproj.user
+*.vcxproj.filters
+
+# === IDE и временные файлы ===
+*.suo
+*.sdf
+*.opensdf
+*.sln
+*.opensln
+
+# === Другие ===
+*.tmp
+*.cache
+*.bak
+.DS_Store
+Thumbs.db
+
+# === Разрешить только .c, .h, .cpp (всё остальное игнорируется) ===
+# (Опционально: если хотите быть максимально строгим)
+
+# Игнорировать ВСЁ
+*
+
+# Но НЕ игнорировать .c, .h, .cpp
+!*.c
+!*.h
+!*.cpp
+
+# И НЕ игнорировать .gitignore и README
+!.gitignore
+!README.md
+!readme.md
