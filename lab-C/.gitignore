@@ -1,0 +1,36 @@
+# Файлы сборки и исполняемые файлы
+/[Dd]ebug/
+/[Rr]elease/
+/[Bb]uild/
+/[Oo]bj/
+*.exe
+*.dll
+*.pdb
+*.obj
+
+# Файлы IDE
+*.user
+*.sdf
+*.opensdf
+*.suo
+*.vcxproj.user
+
+# Файлы CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+*.cmake
+
+# Временные файлы
+*.tmp
+*.log
+*.tlog
+
+# Системные файлы
+.DS_Store
+Thumbs.db
+
+# Каталоги out-of-source сборки
+build/
+out/
