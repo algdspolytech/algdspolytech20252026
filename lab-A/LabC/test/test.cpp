@@ -2,7 +2,7 @@
 #include "gtest/gtest.h"
 #include "maze.h"
 
-TEST(MazeTest, create_queue_returnValidVal_no1) {//+
+TEST(MazeTest, create_queue_returnValidVal_no1) {
     queue q;
     create_queue(&q);
 
@@ -11,7 +11,7 @@ TEST(MazeTest, create_queue_returnValidVal_no1) {//+
     EXPECT_EQ(q.filled, 0);
 }
 
-TEST(MazeTest, add_to_queue_returnValidVal_no2) {//+
+TEST(MazeTest, add_to_queue_returnValidVal_no2) {
     queue q;
     create_queue(&q);
     point p = { 1, 2 };
@@ -23,7 +23,7 @@ TEST(MazeTest, add_to_queue_returnValidVal_no2) {//+
     EXPECT_EQ(q.elems[0].y, 2);
 }
 
-TEST(MazeTest, get_from_queue_returnValidVal_no3) {//+
+TEST(MazeTest, get_from_queue_returnValidVal_no3) {
     queue q;
     create_queue(&q);
     point p_in = { 5, 6 };
@@ -36,7 +36,7 @@ TEST(MazeTest, get_from_queue_returnValidVal_no3) {//+
     EXPECT_EQ(q.filled, 0);
 }
 
-TEST(MazeTest, bfs_OnePathWayExist_return_1_no4) {//+
+TEST(MazeTest, bfs_OnePathWayExist_return_1_no4) {
     char maze[n][n] = {
         {'1', '*', '*', '#', '#', '#', '#', '#', '#', '#'},
         {'#', '#', '*', '#', '#', '#', '#', '#', '#', '#'},
@@ -57,7 +57,7 @@ TEST(MazeTest, bfs_OnePathWayExist_return_1_no4) {//+
     EXPECT_EQ(result, 1); 
 }
 
-TEST(MazeTest, bfs_OnlyWalls_return_0_no5) {//+
+TEST(MazeTest, bfs_OnlyWalls_return_0_no5) {
     char maze[n][n] = {
         {'1', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
         {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
@@ -78,7 +78,7 @@ TEST(MazeTest, bfs_OnlyWalls_return_0_no5) {//+
     EXPECT_EQ(result, 0);
 }
 
-TEST(MazeTest, bfs_ManyPathWayExist_return_1_no6) {//+
+TEST(MazeTest, bfs_ManyPathWayExist_return_1_no6) {
    
     char maze[n][n] = {
         {'1', '*', '#', '*', '*', '*', '#', '*', '*', '*'},
@@ -100,7 +100,7 @@ TEST(MazeTest, bfs_ManyPathWayExist_return_1_no6) {//+
     EXPECT_EQ(result, 1); 
 }
 
-TEST(MazeTest, bfs_ManyPathNoWay_return_0_no7) {//+
+TEST(MazeTest, bfs_ManyPathNoWay_return_0_no7) {
     char maze[n][n] = {
         {'1', '*', '#', '*', '*', '*', '#', '*', '#', '*'},
         {'*', '*', '#', '*', '#', '*', '#', '*', '#', '*'},
@@ -121,7 +121,7 @@ TEST(MazeTest, bfs_ManyPathNoWay_return_0_no7) {//+
     EXPECT_EQ(result, 0); 
 }
 
-TEST(MazeTest, get_path_SimpleWay_returnLength_1_no8) {//+
+TEST(MazeTest, get_path_SimpleWay_returnLength_1_no8) {
     char maze[n][n] = {
         {'1', '0', '#', '#', '#', '#', '#', '#', '#', '#'},
         {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
@@ -144,7 +144,7 @@ TEST(MazeTest, get_path_SimpleWay_returnLength_1_no8) {//+
     EXPECT_EQ(path_len, 1);
 }
 
-TEST(MazeTest, get_path_NoWay_returnLength_0_no9) {//+
+TEST(MazeTest, get_path_NoWay_returnLength_0_no9) {
     char maze[n][n] = {
         {'1', '#', '0', '#', '#', '#', '#', '#', '#', '#'},
         {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
@@ -167,7 +167,7 @@ TEST(MazeTest, get_path_NoWay_returnLength_0_no9) {//+
     EXPECT_EQ(path_len, 0);
 }
 
-TEST(MazeTest, get_path_HardWay_returnLength_18_no10) {//+
+TEST(MazeTest, get_path_HardWay_returnLength_18_no10) {
     char maze[n][n] = {
         {'1', '*', '*', '#', '#', '#', '#', '#', '#', '#'},
         {'#', '#', '*', '#', '#', '#', '#', '#', '#', '#'},
