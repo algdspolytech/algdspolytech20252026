@@ -1,0 +1,17 @@
+# Object files
+*.o
+
+# Executables
+program
+*.exe
+
+# System files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/.vs/
+*.vcxproj
+*.sln
+*.filters

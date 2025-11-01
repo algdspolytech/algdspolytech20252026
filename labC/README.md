@@ -1,0 +1,9 @@
+# Laboratory Work: Adjacency List Construction
+**Variant:** 10
+
+## Task
+A graph is given in a file as an adjacency matrix. Construct an adjacency list.
+
+## Input File Format
+First number - number of vertices n
+Next n x n numbers - adjacency matrix
