@@ -1,0 +1,13 @@
+# ����� �������� Visual Studio
+*.vcxproj
+*.filters
+*.user
+*.sln
+*.txt
+*.exe
+*.ilk
+*.obj
+*.pdb
+*.json
+# ����� ������
+x64
