@@ -1,0 +1,49 @@
+# Исполняемые файлы
+*.exe
+*.out
+*.app
+*.o
+*.obj
+*.a
+*.lib
+*.dll
+*.so
+
+# Папки сборки
+build/
+dist/
+Debug/
+Release/
+x64/
+x86/
+out/
+
+# Папки IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Промежуточные файлы компиляции
+*.ilk
+*.pdb
+*.pch
+*.sbr
+
+# Автогенерируемые файлы
+*.log
+*.tmp
+*.temp
+
+# Системные файлы
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Папка тестов (если есть исполняемые файлы тестов)
+tests/test_runner
+tests/*.exe
+
+# Резервные копии
+*~
+*.bak
