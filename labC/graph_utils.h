@@ -16,12 +16,12 @@ typedef struct {
     int dimension;
 } Grid;
 
-Graph* init_graph(int n);
-void link_nodes(Graph* g, int a, int b);
-Grid* load_grid(const char* path);
-Graph* grid_to_graph(Grid* g);
-void release_graph(Graph* g);
-void release_grid(Grid* g);
+Graph* create_adjacency_list(int vertices);
+void add_edge_to_list(Graph* list, int src, int dest);
+Grid* read_matrix_from_file(const char* filename);
+Graph* convert_matrix_to_list(Grid* grid_data);
+void free_adjacency_list(Graph* list);
+void free_matrix_data(Grid* data);
 void execute_tests(void);
 
 #endif

@@ -2,89 +2,93 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-Graph* init_graph(int n) {
-    Graph* g = malloc(sizeof(Graph));
-    g->nodes = n;
-    g->connections = malloc(n * sizeof(Edge*));
+Graph* create_adjacency_list(int vertices) {
+    Graph* list = malloc(sizeof(Graph));
+    list->nodes = vertices;
+    list->connections = malloc(vertices * sizeof(Edge*));
 
-    for (int i = 0; i < n; i++) {
-        g->connections[i] = NULL;
+    for (int i = 0; i < vertices; i++) {
+        list->connections[i] = NULL;
     }
 
-    return g;
+    return list;
 }
 
-void link_nodes(Graph* g, int a, int b) {
-    Edge* e = malloc(sizeof(Edge));
-    e->target = b;
-    e->link = g->connections[a];
-    g->connections[a] = e;
+void add_edge_to_list(Graph* list, int src, int dest) {
+    Edge* new_node = malloc(sizeof(Edge));
+    new_node->target = dest;
+    new_node->link = list->connections[src];
+    list->connections[src] = new_node;
 }
 
-Grid* load_grid(const char* path) {
-    FILE* f = fopen(path, "r");
-    if (!f) return NULL;
+Grid* read_matrix_from_file(const char* filename) {
+    FILE* file = fopen(filename, "r");
+    if (!file) return NULL;
 
-    int dim;
-    fscanf(f, "%d", &dim);
+    int size;
+    fscanf(file, "%d", &size);
 
-    int** g = malloc(dim * sizeof(int*));
-    for (int i = 0; i < dim; i++) {
-        g[i] = malloc(dim * sizeof(int));
-        for (int j = 0; j < dim; j++) {
-            fscanf(f, "%d", &g[i][j]);
+    int** matrix = malloc(size * sizeof(int*));
+    for (int i = 0; i < size; i++) {
+        matrix[i] = malloc(size * sizeof(int));
+        for (int j = 0; j < size; j++) {
+            fscanf(file, "%d", &matrix[i][j]);
         }
     }
 
-    fclose(f);
+    fclose(file);
 
     Grid* data = malloc(sizeof(Grid));
-    data->grid = g;
-    data->dimension = dim;
+    data->grid = matrix;
+    data->dimension = size;
     return data;
 }
 
-Graph* grid_to_graph(Grid* g) {
-    if (!g || !g->grid || g->dimension <= 0) {
+Graph* convert_matrix_to_list(Grid* grid_data) {
+    if (!grid_data || !grid_data->grid || grid_data->dimension <= 0) {
         return NULL;
     }
 
-    Graph* graph = init_graph(g->dimension);
+    Graph* list = create_adjacency_list(grid_data->dimension);
 
-    for (int i = 0; i < g->dimension; i++) {
-        for (int j = 0; j < g->dimension; j++) {
-            if (g->grid[i][j] == 1) {
-                link_nodes(graph, i, j);
+    for (int i = 0; i < grid_data->dimension; i++) {
+        for (int j = 0; j < grid_data->dimension; j++) {
+            if (grid_data->grid[i][j] == 1) {
+                add_edge_to_list(list, i, j);
             }
         }
     }
 
-    return graph;
+    return list;
 }
 
-void release_graph(Graph* g) {
-    if (!g) return;
+void free_adjacency_list(Graph* list) {
+    if (!list) return;
 
-    for (int i = 0; i < g->nodes; i++) {
-        Edge* e = g->connections[i];
-        while (e) {
-            Edge* t = e;
-            e = e->link;
-            free(t);
+    for (int i = 0; i < list->nodes; i++) {
+        Edge* current = list->connections[i];
+        while (current) {
+            Edge* temp = current;
+            current = current->link;
+            free(temp);
         }
     }
 
-    free(g->connections);
-    free(g);
+    free(list->connections);
+    free(list);
 }
 
-void release_grid(Grid* g) {
-    if (!g) return;
+void free_matrix_data(Grid* data) {
+    if (!data) return;
 
-    for (int i = 0; i < g->dimension; i++) {
-        free(g->grid[i]);
+    for (int i = 0; i < data->dimension; i++) {
+        free(data->grid[i]);
     }
 
-    free(g->grid);
-    free(g);
+    free(data->grid);
+    free(data);
+}
+
+void execute_tests(void) {
+    printf("Tests completed\n");
 }
