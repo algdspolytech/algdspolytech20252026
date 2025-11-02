@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "adjacency_list.h"
+#include "graph_utils.h"
 
 static int tests_passed = 0;
 static int tests_failed = 0;

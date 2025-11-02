@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -std=c99
 TARGET = program
-SOURCES = adjacency_list.c test_adjacency_list.c main.c
+SOURCES = graph_utils.c test_adjacency_list.c main.c
 OBJECTS = $(SOURCES:.c=.o)
 
 $(TARGET): $(OBJECTS)
