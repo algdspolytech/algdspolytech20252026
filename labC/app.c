@@ -20,7 +20,7 @@ int main() {
 
     printf("\n--- Application ---\n");
 
-    Grid* data = load_grid("input.txt");
+    Grid* data = load_grid("graph.txt");
     if (!data) {
         printf("Cannot read file\n");
         return 1;
