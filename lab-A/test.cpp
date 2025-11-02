@@ -21,7 +21,7 @@ protected:
     void TearDown() override {
         // Очищаем память, выделенную для узлов списка
         while (!isListStackEmpty(&stack)) {
-            popStackList(&stack);
+            popListStack(&stack);
         }
     }
     
@@ -41,7 +41,7 @@ TEST_F(ListStackTest, CreateListStack_EmptyStack_ReturnValidVal_no1) {
 
 // Тест добавления одного элемента в стек на списке
 TEST_F(ListStackTest, PushStackList_SingleElement_ReturnValidVal_no2) {
-    pushStackList(&stack, 1);
+    pushListStack(&stack, 1);
     EXPECT_EQ(stack.top->data, 1);
     EXPECT_EQ(stack.top->next, nullptr);
     EXPECT_EQ(stack.size, 1);
@@ -50,7 +50,7 @@ TEST_F(ListStackTest, PushStackList_SingleElement_ReturnValidVal_no2) {
 // Тест добавления нескольких элементов в стек на списке
 TEST_F(ListStackTest, PushStackList_SomeElements_ReturnValidVal_no3) {
     for (int i = 1; i <= 5; i++) {
-        pushStackList(&stack, i);
+        pushListStack(&stack, i);
     }
     
     EXPECT_EQ(stack.top->data, 5);
@@ -59,8 +59,8 @@ TEST_F(ListStackTest, PushStackList_SomeElements_ReturnValidVal_no3) {
 
 // Тест извлечения элемента из стека на списке
 TEST_F(ListStackTest, PopStackList_SingleElement_ReturnValidVal_no4) {
-    pushStackList(&stack, 1);
-    int val = popStackList(&stack);
+    pushListStack(&stack, 1);
+    int val = popListStack(&stack);
     EXPECT_EQ(val, 1);
     EXPECT_EQ(stack.top, nullptr);
     EXPECT_EQ(stack.size, 0);
@@ -68,13 +68,13 @@ TEST_F(ListStackTest, PopStackList_SingleElement_ReturnValidVal_no4) {
 
 // Тест извлечения из пустого стека на списке
 TEST_F(ListStackTest, PopStackList_EmptyStack_ReturnErrorCode_no5) {
-    EXPECT_EQ(popStackList(&stack), -1);
+    EXPECT_EQ(popListStack(&stack), -1);
 }
 
 // Тест просмотра верхнего элемента стека на списке
 TEST_F(ListStackTest, PeekList_SingleElement_ReturnValidVal_no6) {
-    pushStackList(&stack, 1);
-    EXPECT_EQ(peekList(&stack), 1);
+    pushListStack(&stack, 1);
+    EXPECT_EQ(peekListStack(&stack), 1);
     EXPECT_EQ(stack.size, 1);
 }
 
@@ -87,7 +87,7 @@ TEST_F(ArrayStackTest, CreateArrayStack_EmptyStack_ReturnValidVal_no7) {
 
 // Тест добавления одного элемента в стек на массиве
 TEST_F(ArrayStackTest, PushArray_SingleElement_ReturnValidVal_no8) {
-    pushArray(&stack, 1);
+    pushArrayStack(&stack, 1);
     EXPECT_EQ(stack.top, 0);
     EXPECT_EQ(stack.data[0], 1);
 }
@@ -95,7 +95,7 @@ TEST_F(ArrayStackTest, PushArray_SingleElement_ReturnValidVal_no8) {
 // Тест добавления нескольких элементов в стек на массиве
 TEST_F(ArrayStackTest, PushArray_SomeElements_ReturnValidVal_no9) {
     for (int i = 0; i < 5; i++){
-        pushArray(&stack, i + 1);
+        pushArrayStack(&stack, i + 1);
     }
     EXPECT_EQ(stack.top, 4);
     EXPECT_EQ(stack.data[0], 1);
@@ -109,31 +109,31 @@ TEST_F(ArrayStackTest, PushArray_SomeElements_ReturnValidVal_no9) {
 TEST_F(ArrayStackTest, PushArray_OverflowStack_ReturnValidVal_no10) {
     // Заполняем стек до предела
     for (int i = 0; i < MAX_STACK_SIZE; i++) {
-        pushArray(&stack, i);
+        pushArrayStack(&stack, i);
     }
     
     int before_top = stack.top;
-    pushArray(&stack, 1);
+    pushArrayStack(&stack, 1);
     EXPECT_EQ(stack.top, before_top);
 }
 
 // Тест извлечения элемента из стека на массиве
 TEST_F(ArrayStackTest, PopArray_SingleElement_ReturnValidVal_no11) {
-    pushArray(&stack, 1);
-    int val = popArray(&stack);
+    pushArrayStack(&stack, 1);
+    int val = popArrayStack(&stack);
     EXPECT_EQ(val, 1);
     EXPECT_EQ(stack.top, -1);
 }
 
 // Тест извлечения из пустого стека на массиве
 TEST_F(ArrayStackTest, PopArray_EmptyStack_ReturnErrorCode_no12) {
-    EXPECT_EQ(popArray(&stack), -1);
+    EXPECT_EQ(popArrayStack(&stack), -1);
 }
 
 // Тест просмотра верхнего элемента стека на массиве
 TEST_F(ArrayStackTest, PeekArray_SingleElement_ReturnValidVal_no13) {
     pushArray(&stack, 1);
-    EXPECT_EQ(peekArray(&stack), 1);
+    EXPECT_EQ(peekArrayStack(&stack), 1);
     EXPECT_EQ(stack.top, 0);
 }
 
