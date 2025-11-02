@@ -1,0 +1,41 @@
+# Файлы сборки Visual Studio
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+
+# Файлы Visual Studio
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.sln
+*.sdf
+*.suo
+*.opensdf
+*.db
+
+# Папка VS
+.vs/
+.vscode/
+
+# Временные файлы
+*.tmp
+*.temp
+
+# Исполняемые файлы
+*.exe
+*.dll
+*.pdb
+
+# Резервные копии
+*.bak
+*.backup
+
+# Системные файлы
+Thumbs.db
+.DS_Store
