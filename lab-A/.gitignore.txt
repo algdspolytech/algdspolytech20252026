@@ -6,6 +6,7 @@
 *.opensdf
 *.ipch/
 *.vs/
+
 packages/
 
 Debug/
