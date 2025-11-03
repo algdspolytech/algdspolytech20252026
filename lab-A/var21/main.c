@@ -10,7 +10,7 @@ Node* createNode(const char* word, int key) {
 	setlocale(LC_ALL, "russian");
 	Node* node = (Node*)malloc(sizeof(Node));
 	if (!node) {
-		fprintf(stderr, "Ошибка выделения памяти\n");
+		fprintf(stderr, "РћС€РёР±РєР° РІС‹РґРµР»РµРЅРёСЏ РїР°РјСЏС‚Рё\n");
 		exit(1);
 	}
 	strncpy(node->word, word, MAX_WORD_LEN - 1);
@@ -33,7 +33,7 @@ Node* insertSorted(Node* head, const char* word, int key) {
 
 	if ((cur->key == key) || (cur->next && cur->next->key == key)) {
 		setlocale(LC_ALL, "russian");
-		printf("Ошибка: повтор ключа %d\n", key);
+		printf("РћС€РёР±РєР°: РїРѕРІС‚РѕСЂ РєР»СЋС‡Р° %d\n", key);
 		return head;
 	}
 
@@ -56,12 +56,12 @@ void findWord(Node* head, int searchKey) {
 	Node* p = head;
 	while (p) {
 		if (p->key == searchKey) {
-			printf("Найдено слово: %s (ключ %d)\n", p->word, p->key);
+			printf("РќР°Р№РґРµРЅРѕ СЃР»РѕРІРѕ: %s (РєР»СЋС‡ %d)\n", p->word, p->key);
 			return;
 		}
 		p = p->next;
 	}
-	printf("Слова с ключом %d не найдено.\n", searchKey);
+	printf("РЎР»РѕРІР° СЃ РєР»СЋС‡РѕРј %d РЅРµ РЅР°Р№РґРµРЅРѕ.\n", searchKey);
 }
 
 void freeList(Node* head) {
@@ -77,7 +77,7 @@ void freeList(Node* head) {
 //	Node* head = NULL;
 //	FILE* f = fopen("data.txt", "r");
 //	if (!f) {
-//		printf("Не удалось открыть файл.\n");
+//		printf("РќРµ СѓРґР°Р»РѕСЃСЊ РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р».\n");
 //		return 1;
 //	}
 //
@@ -87,10 +87,10 @@ void freeList(Node* head) {
 //		head = insertSorted(head, word, key);
 //	fclose(f);
 //
-//	printf("Список из файла:\n");
+//	printf("РЎРїРёСЃРѕРє РёР· С„Р°Р№Р»Р°:\n");
 //	printList(head);
 //
-//	printf("Введите ключ для поиска: ");
+//	printf("Р’РІРµРґРёС‚Рµ РєР»СЋС‡ РґР»СЏ РїРѕРёСЃРєР°: ");
 //	scanf("%d", &key);
 //	findWord(head, key);
 //

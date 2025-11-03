@@ -53,7 +53,7 @@ TEST(LinkedListTest, FindExisting_no6) {
 	testing::internal::CaptureStdout();
 	findWord(head, 20);
 	std::string output = testing::internal::GetCapturedStdout();
-	EXPECT_NE(output.find("������� �����: b"), std::string::npos);
+	EXPECT_NE(output.find("Найдено слово: b"), std::string::npos);
 	freeList(head);
 }
 
@@ -63,7 +63,7 @@ TEST(LinkedListTest, FindMissing_no7) {
 	testing::internal::CaptureStdout();
 	findWord(head, 5);
 	std::string output = testing::internal::GetCapturedStdout();
-	EXPECT_NE(output.find("�� �������"), std::string::npos);
+	EXPECT_NE(output.find("не найдено"), std::string::npos);
 	freeList(head);
 }
 
