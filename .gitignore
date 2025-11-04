@@ -1,0 +1,7 @@
+x64/
+packages/
+
+*.sln
+*.filters
+*.user
+*.config
