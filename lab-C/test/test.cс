@@ -1,0 +1,110 @@
+#include "pch.h"
+#include <gtest/gtest.h>
+
+extern "C" {
+#include "../GraphSearch/graph.h"
+}
+
+// Тест 1: Создание графа
+TEST(GraphTest, CreateGraph_no1) {
+    Graph* graph = create_graph(5);
+    ASSERT_NE(graph, nullptr);
+    EXPECT_EQ(graph->vertices, 5);
+    free_graph(graph);
+}
+
+// Тест 2: Путь в графе из 2 вершин
+TEST(GraphTest, TwoVerticesPath_no2) {
+    Graph* graph = create_graph(2);
+    graph->matrix[0][1] = 1;
+    graph->matrix[1][0] = 1;
+
+    EXPECT_TRUE(path_exists(graph, 0, 1));
+    free_graph(graph);
+}
+
+// Тест 3: Нет пути в несвязном графе
+TEST(GraphTest, NoPathExists_no3) {
+    Graph* graph = create_graph(3);
+    graph->matrix[0][1] = 1;
+    graph->matrix[1][0] = 1;
+
+    EXPECT_FALSE(path_exists(graph, 0, 2));
+    free_graph(graph);
+}
+
+// Тест 4: Путь к самому себе
+TEST(GraphTest, PathToSelf_no4) {
+    Graph* graph = create_graph(3);
+    EXPECT_TRUE(path_exists(graph, 1, 1));
+    free_graph(graph);
+}
+
+// Тест 5: Сложный путь через несколько вершин
+TEST(GraphTest, ComplexPath_no5) {
+    Graph* graph = create_graph(4);
+    graph->matrix[0][1] = 1;
+    graph->matrix[1][0] = 1;
+    graph->matrix[1][2] = 1;
+    graph->matrix[2][1] = 1;
+    graph->matrix[2][3] = 1;
+    graph->matrix[3][2] = 1;
+
+    EXPECT_TRUE(path_exists(graph, 0, 3));
+    free_graph(graph);
+}
+
+// Тест 6: Неправильные вершины
+TEST(GraphTest, InvalidVertices_no6) {
+    Graph* graph = create_graph(3);
+
+    EXPECT_FALSE(path_exists(graph, -1, 2));
+    EXPECT_FALSE(path_exists(graph, 0, 5));
+    free_graph(graph);
+}
+
+// Тест 7: Полный граф
+TEST(GraphTest, CompleteGraph_no7) {
+    Graph* graph = create_graph(4);
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            if (i != j) graph->matrix[i][j] = 1;
+        }
+    }
+
+    EXPECT_TRUE(path_exists(graph, 0, 3));
+    free_graph(graph);
+}
+
+// Тест 8: Граф с циклом
+TEST(GraphTest, CyclicGraph_no8) {
+    Graph* graph = create_graph(3);
+    graph->matrix[0][1] = 1;
+    graph->matrix[1][0] = 1;
+    graph->matrix[1][2] = 1;
+    graph->matrix[2][1] = 1;
+    graph->matrix[2][0] = 1;
+    graph->matrix[0][2] = 1;
+
+    EXPECT_TRUE(path_exists(graph, 0, 2));
+    free_graph(graph);
+}
+
+// Тест 9: Одновершинный граф
+TEST(GraphTest, SingleVertexGraph_no9) {
+    Graph* graph = create_graph(1);
+    EXPECT_TRUE(path_exists(graph, 0, 0));
+    free_graph(graph);
+}
+
+// Тест 10: Большой граф
+TEST(GraphTest, LargeGraph_no10) {
+    Graph* graph = create_graph(10);
+    for (int i = 0; i < 9; i++) {
+        graph->matrix[i][i + 1] = 1;
+        graph->matrix[i + 1][i] = 1;
+    }
+
+    EXPECT_TRUE(path_exists(graph, 0, 9));
+    free_graph(graph);
+}
