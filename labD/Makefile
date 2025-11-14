@@ -5,13 +5,13 @@ TEST_TARGET = tests
 
 all: $(TARGET)
 
-$(TARGET): main.c ruckzack.c ruckzack.h
-	$(CC) $(CFLAGS) -o $(TARGET) main.c ruckzack.c
+$(TARGET): main.c ruckzack.c io.c
+	$(CC) $(CFLAGS) -o $(TARGET) main.c ruckzack.c io.c
 
 test: $(TEST_TARGET)
 
-$(TEST_TARGET): tests.c ruckzack.c ruckzack.h
-	$(CC) $(CFLAGS) -o $(TEST_TARGET) tests.c ruckzack.c
+$(TEST_TARGET): tests.c ruckzack.c io.c
+	$(CC) $(CFLAGS) -o $(TEST_TARGET) tests.c ruckzack.c io.c
 
 clean:
 	rm -f $(TARGET) $(TEST_TARGET) output.txt
