@@ -5,13 +5,13 @@
 
 #define MAX_V 1000
 
+#include "Lab_D.h"
+
 #include <locale.h>
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-#include "Lab_D.h"
 
 void InGraph(GrphStrc* graph, int V) {
   graph->Grph = (int**)malloc((V + 1) * sizeof(int*));
