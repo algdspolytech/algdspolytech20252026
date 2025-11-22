@@ -1,0 +1,16 @@
+*.exe 
+*.obj 
+[Dd]ebug/ 
+[Rr]elease/ 
+x64/ 
+x86/ 
+*.pdb 
+.vs/ 
+*.vcxproj 
+*.sln 
+*.suo 
+packages/
+*.txt
+*.vcxproj.user
+*.user
+*.packages.config
