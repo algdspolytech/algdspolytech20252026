@@ -191,3 +191,4 @@ void free_sudoku(Sudoku* sudoku) {
     }
     if (sudoku->board) free(sudoku->board);
 }
+
