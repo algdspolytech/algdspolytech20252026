@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Структуры и функции
 typedef struct Node {
     struct Node* left, * right, * up, * down, * column;
     int row_id, size;
@@ -18,7 +17,6 @@ typedef struct {
     int N, board_size, box_size, ** board;
 } Sudoku;
 
-// Глобальные переменные
 int* row_to_r, * row_to_c, * row_to_num, total_rows;
 
 void init_dlx(DLX* dlx, int cols, int board_size, int box_size) {
@@ -199,7 +197,6 @@ void free_sudoku(Sudoku* sudoku) {
     if (sudoku->board) free(sudoku->board);
 }
 
-// Вспомогательная функция для создания тестовых файлов
 void create_test_file(const char* filename, const char* content) {
     FILE* file = fopen(filename, "w");
     if (file) {
@@ -208,7 +205,6 @@ void create_test_file(const char* filename, const char* content) {
     }
 }
 
-// Тест 1: Инициализация DLX с нормальными параметрами
 TEST(SudokuTest, init_dlx_ValidParameters_InitializesCorrectly_no1) {
     DLX dlx;
     init_dlx(&dlx, 100, 9, 3);
@@ -221,7 +217,6 @@ TEST(SudokuTest, init_dlx_ValidParameters_InitializesCorrectly_no1) {
     free_dlx(&dlx);
 }
 
-// Тест 2: Инициализация DLX с нулевым количеством столбцов (крайний случай)
 TEST(SudokuTest, init_dlx_ZeroColumns_HandlesCorrectly_no2) {
     DLX dlx;
     init_dlx(&dlx, 0, 9, 3);
@@ -233,7 +228,6 @@ TEST(SudokuTest, init_dlx_ZeroColumns_HandlesCorrectly_no2) {
     free_dlx(&dlx);
 }
 
-// Тест 3: Добавление строки с нормальными параметрами
 TEST(SudokuTest, add_row_ValidParameters_AddsRowCorrectly_no3) {
     DLX dlx;
     init_dlx(&dlx, 10, 9, 3);
@@ -247,7 +241,6 @@ TEST(SudokuTest, add_row_ValidParameters_AddsRowCorrectly_no3) {
     free_dlx(&dlx);
 }
 
-// Тест 4: Добавление строки с одним столбцом (крайний случай)
 TEST(SudokuTest, add_row_SingleColumn_AddsRowCorrectly_no4) {
     DLX dlx;
     init_dlx(&dlx, 5, 9, 3);
@@ -261,7 +254,6 @@ TEST(SudokuTest, add_row_SingleColumn_AddsRowCorrectly_no4) {
     free_dlx(&dlx);
 }
 
-// Тест 5: Чтение судоку из корректного файла
 TEST(SudokuTest, read_sudoku_ValidFile_ReadsCorrectly_no5) {
     const char* input = "3\n5 3 0 0 7 0 0 0 0\n6 0 0 1 9 5 0 0 0\n0 9 8 0 0 0 0 6 0\n";
     create_test_file("test_input.txt", input);
@@ -279,7 +271,6 @@ TEST(SudokuTest, read_sudoku_ValidFile_ReadsCorrectly_no5) {
     remove("test_input.txt");
 }
 
-// Тест 6: Чтение судоку с минимальным размером (N=1, крайний случай)
 TEST(SudokuTest, read_sudoku_MinimalSize_ReadsCorrectly_no6) {
     const char* input = "1\n1\n";
     create_test_file("test_minimal.txt", input);
@@ -295,7 +286,6 @@ TEST(SudokuTest, read_sudoku_MinimalSize_ReadsCorrectly_no6) {
     remove("test_minimal.txt");
 }
 
-// Тест 7: Запись судоку в файл
 TEST(SudokuTest, write_sudoku_ValidBoard_WritesFile_no7) {
     Sudoku sudoku;
     sudoku.N = 2;
@@ -319,7 +309,6 @@ TEST(SudokuTest, write_sudoku_ValidBoard_WritesFile_no7) {
     remove("test_output.txt");
 }
 
-// Тест 8: Запись "нет решения"
 TEST(SudokuTest, write_no_solution_CreatesFileWithZero_no8) {
     write_no_solution("test_no_solution.txt");
 
@@ -335,7 +324,6 @@ TEST(SudokuTest, write_no_solution_CreatesFileWithZero_no8) {
     remove("test_no_solution.txt");
 }
 
-// Тест 9: Покрытие и раскрытие столбца (алгоритмический тест)
 TEST(SudokuTest, cover_uncover_Column_WorksCorrectly_no9) {
     DLX dlx;
     init_dlx(&dlx, 5, 9, 3);
@@ -351,7 +339,6 @@ TEST(SudokuTest, cover_uncover_Column_WorksCorrectly_no9) {
     free_dlx(&dlx);
 }
 
-// Тест 10: Поиск решения для пустой доски 2x2 (алгоритмический тест)
 TEST(SudokuTest, search_EmptyBoard2x2_FindsSolution_no10) {
     Sudoku sudoku;
     sudoku.N = 2;
@@ -373,7 +360,6 @@ TEST(SudokuTest, search_EmptyBoard2x2_FindsSolution_no10) {
     free_sudoku(&sudoku);
 }
 
-/// Тест 11: Поиск решения для заполненной доски (крайний случай)
 TEST(SudokuTest, search_FilledBoard_ReturnsSolution_no11) {
     Sudoku sudoku;
     sudoku.N = 2;
@@ -405,7 +391,6 @@ TEST(SudokuTest, search_FilledBoard_ReturnsSolution_no11) {
     free_sudoku(&sudoku);
 }
 
-// Тест 12: Преобразование решения обратно в судоку
 TEST(SudokuTest, solution_to_sudoku_ValidSolution_FillsBoard_no12) {
     Sudoku sudoku;
     sudoku.N = 2;
@@ -418,8 +403,6 @@ TEST(SudokuTest, solution_to_sudoku_ValidSolution_FillsBoard_no12) {
 
     DLX dlx;
     init_dlx(&dlx, 64, 4, 2);
-
-    // Имитируем найденное решение
     row_to_r[0] = 0; row_to_c[0] = 0; row_to_num[0] = 0;
     dlx.solution[0] = 0;
     dlx.solution_count = 1;
@@ -432,7 +415,6 @@ TEST(SudokuTest, solution_to_sudoku_ValidSolution_FillsBoard_no12) {
     free_sudoku(&sudoku);
 }
 
-// Тест 13: Освобождение памяти DLX (тест на утечки памяти)
 TEST(SudokuTest, free_dlx_ValidStructure_FreesMemory_no13) {
     DLX dlx;
     init_dlx(&dlx, 10, 9, 3);
@@ -440,10 +422,9 @@ TEST(SudokuTest, free_dlx_ValidStructure_FreesMemory_no13) {
     add_row(&dlx, cols, 3, 0, 0, 1);
 
     free_dlx(&dlx);
-    SUCCEED(); // Если не упало - тест пройден
+    SUCCEED();
 }
 
-// Тест 14: Освобождение памяти судоку (тест на утечки памяти)
 TEST(SudokuTest, free_sudoku_ValidStructure_FreesMemory_no14) {
     Sudoku sudoku;
     sudoku.N = 3;
@@ -455,10 +436,9 @@ TEST(SudokuTest, free_sudoku_ValidStructure_FreesMemory_no14) {
     }
 
     free_sudoku(&sudoku);
-    SUCCEED(); // Если не упало - тест пройден
+    SUCCEED();
 }
 
-// Тест 15: Множественное добавление строк
 TEST(SudokuTest, add_row_MultipleRows_AddsCorrectly_no15) {
     DLX dlx;
     init_dlx(&dlx, 10, 9, 3);
@@ -474,7 +454,6 @@ TEST(SudokuTest, add_row_MultipleRows_AddsCorrectly_no15) {
     free_dlx(&dlx);
 }
 
-// Тест 16: Преобразование судоку в точное покрытие для частично заполненной доски
 TEST(SudokuTest, sudoku_to_exact_cover_PartialBoard_CreatesRows_no16) {
     Sudoku sudoku;
     sudoku.N = 2;
@@ -500,4 +479,5 @@ TEST(SudokuTest, sudoku_to_exact_cover_PartialBoard_CreatesRows_no16) {
 int main(int argc, char** argv) {
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
+
 }
