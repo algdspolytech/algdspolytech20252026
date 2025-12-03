@@ -16,7 +16,9 @@ input.txt
 1214
 
 output.txt
+
 12+34*56-78*9
+
 
 
 
