@@ -8,6 +8,7 @@
 
 int tests_run = 0;
 
+
 static char* test_create_destroy_no1() {
 	UnrolledList* list = unrolled_list_create();
 	MU_ASSERT("Failed to create list", list != NULL);
