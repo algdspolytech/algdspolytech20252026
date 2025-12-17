@@ -227,3 +227,35 @@ int FindWay(vertex* graph, int graphlen, int prevvert, int fromvert, int tovert,
         return 0;
     }
 }
+
+
+/*
+void main() {
+    setlocale(LC_CTYPE, "Russian");
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+    _CrtSetReportMode(_CRT_WARN, _CRTDBG_MODE_FILE);
+    _CrtSetReportFile(_CRT_WARN, _CRTDBG_FILE_STDOUT);
+    const char* input = "input.txt";
+    const char* output = "output.txt";
+    vertex* graph;
+    char* lines;
+    int lenlines;
+    int graphlen;
+    int fromvert;
+    int tovert;
+    int k;
+    int currwaylen = 0;
+    edge* way = malloc(sizeof(edge));
+    if (way == NULL) { return NULL; }
+    lines = ReadTxt(input, &lenlines);
+    graph = ReadGraph(lines, lenlines, &graphlen, &fromvert, &tovert, &k);
+    FindWay(graph, graphlen, -1, fromvert, tovert, k, &way, &currwaylen);
+    WriteTxt(output, way, currwaylen);
+    free(way);
+    free(lines);
+    for (int i = 0; i < graphlen; i++) {
+        free(graph[i].NeighboursVert);
+    }
+    free(graph);
+}
+*/
