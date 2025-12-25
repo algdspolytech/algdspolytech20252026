@@ -41,7 +41,7 @@ int read_graph_from_file(const char* filename, GraphData* g) {
 
     memset(g, 0, sizeof(GraphData));
 
-    // Чтение V и K
+    // Read V and K
     if (fscanf(fin, "%d %d", &g->V, &g->K) != 2 ||
         g->V <= 0 || g->V > MAXV ||
         g->K <= 0 || g->K > g->V) {
@@ -50,7 +50,7 @@ int read_graph_from_file(const char* filename, GraphData* g) {
         return 0;
     }
 
-    // Выделяем память
+    // Allocate memory
     g->adj = (int**)calloc(g->V + 1, sizeof(int*));
     g->deg = (int*)calloc(g->V + 1, sizeof(int));
     g->used = (int*)calloc(g->V + 1, sizeof(int));
@@ -65,7 +65,7 @@ int read_graph_from_file(const char* filename, GraphData* g) {
     }
 
     char line[6000];
-    fgets(line, sizeof(line), fin); // пропускаем остаток первой строки
+    fgets(line, sizeof(line), fin); // skip remainder of first line
 
     for (int i = 1; i <= g->V; i++) {
         g->adj[i] = (int*)malloc(sizeof(int) * g->V);
@@ -77,7 +77,7 @@ int read_graph_from_file(const char* filename, GraphData* g) {
         }
 
         if (!fgets(line, sizeof(line), fin) || line[0] == '\n' || line[0] == '\0') {
-            // Пустая строка считается ошибкой
+            // Empty line is considered an error
             printf("Input format error\n");
             free_graph(g);
             fclose(fin);
@@ -95,14 +95,14 @@ int read_graph_from_file(const char* filename, GraphData* g) {
             }
             g->adj[i][g->deg[i]++] = u;
 
-            // Пропускаем до следующего числа
+            // Skip to next number
             while (*p && *p != ' ') p++;
             while (*p == ' ') p++;
         }
     }
 
     fclose(fin);
-    return 1; // успешное чтение
+    return 1; // successful read
 }
 
 

@@ -16,19 +16,19 @@ extern "C" {
         int found;
     } GraphData;
 
-    // объявления функций
+    // function declarations
     void free_graph(GraphData* g);
     int all_edges_covered(GraphData* g);
     void backtrack(GraphData* g, int vertex, int chosen);
     int solve_vertex_cover(const char* input_file, const char* output_file);
 
-    // если у тебя есть отдельная функция для чтения графа
+    // if you have separate function for reading graph
     int read_graph_from_file(const char* filename, GraphData* g);
 }
 
-// === Вспомогательные функции для тестов ===
+// === Test helper functions ===
 
-// Создает пустой граф с заданным количеством вершин и K
+// Create empty graph with given number of vertices and K
 GraphData make_empty_graph(int V, int K) {
     GraphData g;
     g.V = V;
@@ -42,13 +42,13 @@ GraphData make_empty_graph(int V, int K) {
     return g;
 }
 
-// === Тесты all_edges_covered ===
+// === Tests for all_edges_covered ===
 
 TEST(all_edges_covered_NoUsedVertices_ReturnFalse) {
     GraphData g = make_empty_graph(3, 2);
     for (int i = 1; i <= 3; i++)
         g.adj[i] = (int*)malloc(3 * sizeof(int));
-    // ребра 1-2, 2-3
+    // edges 1-2, 2-3
     g.adj[1][0] = 2; g.deg[1] = 1;
     g.adj[2][0] = 1; g.adj[2][1] = 3; g.deg[2] = 2;
     g.adj[3][0] = 2; g.deg[3] = 1;
@@ -76,7 +76,7 @@ TEST(all_edges_covered_EmptyGraph_ReturnTrue) {
     free_graph(&g);
 }
 
-// === Тесты backtrack ===
+// === Tests for backtrack ===
 
 TEST(backtrack_SmallGraph_FoundVertexCover) {
     GraphData g = make_empty_graph(2, 1);
@@ -115,11 +115,11 @@ TEST(backtrack_MediumGraph_FindMinimalCover) {
     backtrack(&g, 1, 0);
     EXPECT_EQ(g.found, 1);
     int sum = g.best[1] + g.best[2] + g.best[3];
-    EXPECT_EQ(sum, 2); // минимальный vertex cover
+    EXPECT_EQ(sum, 2); // minimal vertex cover
     free_graph(&g);
 }
 
-// === Тесты free_graph ===
+// === Tests for free_graph ===
 
 TEST(free_graph_NormalGraph_MemoryFreed) {
     GraphData g = make_empty_graph(2, 1);
@@ -134,7 +134,7 @@ TEST(free_graph_NormalGraph_MemoryFreed) {
     EXPECT_EQ(g.best, nullptr);
 }
 
-// === Тесты read_graph_from_file ===
+// === Tests for read_graph_from_file ===
 
 TEST(read_graph_from_file_EmptyFile_ReturnFalse) {
     const char* filename = "empty_test_file.txt";
@@ -167,7 +167,7 @@ TEST(read_graph_from_file_ValidGraph_ReturnTrue) {
 TEST(read_graph_from_file_InvalidVertex_ReturnFalse) {
     const char* filename = "invalid_vertex.txt";
     FILE* f = fopen(filename, "w");
-    fprintf(f, "2 1\n3\n1\n"); // вершина 3 не существует
+    fprintf(f, "2 1\n3\n1\n"); // vertex 3 doesn't exist
     fclose(f);
 
     GraphData g;
@@ -175,21 +175,21 @@ TEST(read_graph_from_file_InvalidVertex_ReturnFalse) {
     EXPECT_EQ(result, 0);
 }
 
-// === Проверка read_graph_from_file с пустой строкой ребра ===
+// === Test for read_graph_from_file with empty edge line ===
 
 TEST(read_graph_from_file_EmptyEdgeLine_ReturnFalse) {
     const char* filename = "empty_edge_line.txt";
     FILE* f = fopen(filename, "w");
-    fprintf(f, "2 1\n\n\n"); // пустые строки
+    fprintf(f, "2 1\n\n\n"); // empty lines
     fclose(f);
 
     GraphData g;
     int result = read_graph_from_file(filename, &g);
 
-    // Ожидаем, что чтение не прошло из-за пустых строк
+    // Expect reading to fail due to empty lines
     EXPECT_EQ(result, 0);
 
-    // После неудачного чтения граф должен быть пустым
+    // After failed reading, graph should be empty
     EXPECT_EQ(g.V, 0);
     EXPECT_EQ(g.K, 0);
     EXPECT_EQ(g.adj, nullptr);
@@ -197,4 +197,3 @@ TEST(read_graph_from_file_EmptyEdgeLine_ReturnFalse) {
     EXPECT_EQ(g.used, nullptr);
     EXPECT_EQ(g.best, nullptr);
 }
-
