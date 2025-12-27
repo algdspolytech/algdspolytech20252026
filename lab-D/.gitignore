@@ -1,0 +1,22 @@
+*.o
+*.exe
+*.out
+Debug/
+Release/
+
+# IDE и редакторы
+.vscode/
+.idea/
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+
+# Временные файлы
+*.tmp
+*.log
+*.swp
+*.swo
+
+# Результаты тестов
+test_results/
