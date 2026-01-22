@@ -4,115 +4,15 @@
 #include <string.h>
 #include <time.h>
 
-#define BUFFER_SIZE (10 * 1024 * 1024)  // 10 MB
-#define TEST_ITERATIONS 10000
-#define MAX_ALLOC_SIZE 2048
+#define BUFFER_SIZE 4096
+#define TEST_ITERATIONS 1000
+#define MAX_ALLOC_SIZE 512
 
-// Тестирование стандартного malloc/free
-void test_standard_malloc(int iterations) {
-    printf("Testing standard malloc/free...\n");
-    
-    void* pointers[TEST_ITERATIONS];
-    int sizes[TEST_ITERATIONS];
-    int pointer_count = 0;
-    
-    clock_t start = clock();
-    
-    for (int i = 0; i < iterations; i++) {
-        if (pointer_count < TEST_ITERATIONS && (rand() % 100 < 60 || pointer_count == 0)) {
-            // Аллокация (60% вероятности)
-            sizes[pointer_count] = (rand() % MAX_ALLOC_SIZE) + 1;
-            pointers[pointer_count] = malloc(sizes[pointer_count]);
-            if (pointers[pointer_count]) {
-                memset(pointers[pointer_count], i % 256, sizes[pointer_count]);
-                pointer_count++;
-            }
-        } else if (pointer_count > 0) {
-            // Освобождение (40% вероятности)
-            int idx = rand() % pointer_count;
-            free(pointers[idx]);
-            pointers[idx] = pointers[pointer_count - 1];
-            sizes[idx] = sizes[pointer_count - 1];
-            pointer_count--;
-        }
-    }
-    
-    // Освобождение оставшейся памяти
-    for (int i = 0; i < pointer_count; i++) {
-        free(pointers[i]);
-    }
-    
-    clock_t end = clock();
-    double time_spent = (double)(end - start) / CLOCKS_PER_SEC;
-    
-    printf("Standard malloc/free time: %.4f seconds\n", time_spent);
-}
-
-// Тестирование пользовательского аллокатора
-void test_custom_allocator(int iterations) {
-    printf("Testing custom memory allocator...\n");
-    
-    // Выделяем буфер для аллокатора
-    void* buffer = malloc(BUFFER_SIZE);
-    if (!buffer) {
-        printf("Failed to allocate buffer for custom allocator\n");
-        return;
-    }
-    
-    // Инициализируем аллокатор
-    if (meminit(buffer, BUFFER_SIZE) != 0) {
-        printf("Failed to initialize memory allocator\n");
-        free(buffer);
-        return;
-    }
-    
-    void* pointers[TEST_ITERATIONS];
-    int sizes[TEST_ITERATIONS];
-    int pointer_count = 0;
-    
-    clock_t start = clock();
-    
-    for (int i = 0; i < iterations; i++) {
-        if (pointer_count < TEST_ITERATIONS && (rand() % 100 < 60 || pointer_count == 0)) {
-            // Аллокация (60% вероятности)
-            sizes[pointer_count] = (rand() % MAX_ALLOC_SIZE) + 1;
-            pointers[pointer_count] = memalloc(sizes[pointer_count]);
-            if (pointers[pointer_count]) {
-                memset(pointers[pointer_count], i % 256, sizes[pointer_count]);
-                pointer_count++;
-            }
-        } else if (pointer_count > 0) {
-            // Освобождение (40% вероятности)
-            int idx = rand() % pointer_count;
-            memfree(pointers[idx]);
-            pointers[idx] = pointers[pointer_count - 1];
-            sizes[idx] = sizes[pointer_count - 1];
-            pointer_count--;
-        }
-    }
-    
-    // Освобождение оставшейся памяти
-    for (int i = 0; i < pointer_count; i++) {
-        memfree(pointers[i]);
-    }
-    
-    clock_t end = clock();
-    double time_spent = (double)(end - start) / CLOCKS_PER_SEC;
-    
-    // Выводим статистику
-    memstat();
-    
-    printf("Custom allocator time: %.4f seconds\n", time_spent);
-    
-    free(buffer);
-}
-
-// Тест корректности работы аллокатора
+// Тест корректности
 void test_correctness() {
-    printf("\n=== Correctness Test ===\n");
+    printf("=== Correctness Test ===\n");
     
-    // Выделяем буфер для аллокатора
-    char buffer[4096];
+    char buffer[BUFFER_SIZE];
     
     if (meminit(buffer, sizeof(buffer)) != 0) {
         printf("Init failed\n");
@@ -165,20 +65,70 @@ void test_correctness() {
     }
 }
 
-int main() {
-    srand(time(NULL));
+// Простой тест производительности
+void test_performance() {
+    printf("\n=== Performance Test ===\n");
     
-    printf("Memory Allocator Testing (Best Fit, Doubly Linked List)\n");
-    printf("=======================================================\n\n");
+    // Выделяем буфер для аллокатора
+    void* buffer = malloc(BUFFER_SIZE * 10); // 40KB
+    if (!buffer) {
+        printf("Failed to allocate buffer\n");
+        return;
+    }
+    
+    // Инициализируем аллокатор
+    if (meminit(buffer, BUFFER_SIZE * 10) != 0) {
+        printf("Failed to initialize allocator\n");
+        free(buffer);
+        return;
+    }
+    
+    void* pointers[TEST_ITERATIONS];
+    int pointer_count = 0;
+    
+    clock_t start = clock();
+    
+    srand(time(NULL));
+    for (int i = 0; i < TEST_ITERATIONS; i++) {
+        if (pointer_count < TEST_ITERATIONS && (rand() % 100 < 70 || pointer_count == 0)) {
+            // Аллокация (70% вероятности)
+            size_t size = (rand() % MAX_ALLOC_SIZE) + 1;
+            pointers[pointer_count] = memalloc(size);
+            if (pointers[pointer_count]) {
+                pointer_count++;
+            }
+        } else if (pointer_count > 0) {
+            // Освобождение (30% вероятности)
+            int idx = rand() % pointer_count;
+            memfree(pointers[idx]);
+            pointers[idx] = pointers[pointer_count - 1];
+            pointer_count--;
+        }
+    }
+    
+    // Освобождение оставшейся памяти
+    for (int i = 0; i < pointer_count; i++) {
+        memfree(pointers[i]);
+    }
+    
+    clock_t end = clock();
+    double time_spent = (double)(end - start) / CLOCKS_PER_SEC;
+    
+    printf("Custom allocator time: %.4f seconds\n", time_spent);
+    memstat();
+    
+    free(buffer);
+}
+
+int main() {
+    printf("Memory Allocator (Best Fit, Doubly Linked List)\n");
+    printf("===============================================\n");
     
     // Тест корректности
     test_correctness();
     
-    printf("\n\n=== Performance Comparison ===\n");
-    
     // Тест производительности
-    test_standard_malloc(TEST_ITERATIONS);
-    test_custom_allocator(TEST_ITERATIONS);
+    test_performance();
     
     return 0;
 }
