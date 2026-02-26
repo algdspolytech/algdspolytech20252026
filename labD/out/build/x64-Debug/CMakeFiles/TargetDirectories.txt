@@ -1,4 +1,0 @@
-C:/Users/sergg/source/repos/algdspolytech20252026/labD/out/build/x64-Debug/CMakeFiles/LIB.dir
-C:/Users/sergg/source/repos/algdspolytech20252026/labD/out/build/x64-Debug/CMakeFiles/WORK.dir
-C:/Users/sergg/source/repos/algdspolytech20252026/labD/out/build/x64-Debug/CMakeFiles/edit_cache.dir
-C:/Users/sergg/source/repos/algdspolytech20252026/labD/out/build/x64-Debug/CMakeFiles/rebuild_cache.dir
