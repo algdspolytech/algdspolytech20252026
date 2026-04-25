@@ -25,10 +25,4 @@ void printTree(TreeNode* root, int cell_width);
 // Освобождение памяти
 void freeTree(TreeNode* root);
 
-// Функции для построения деревьев в тестах
-TreeNode* buildTreeFromArray(
-    int* arr, int n, int index);  // построение полного бинарного дерева из
-                                  // массива (0-индексация, -1 пустой)
-void insertBST(TreeNode** root, int key);  // вставка в дерево
-
 #endif

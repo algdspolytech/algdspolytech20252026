@@ -50,27 +50,6 @@ int fillDiff(TreeNode* root) {
     }
 }
 
-// Построение полного бинарного дерева из массива (по индексам, как в куче)
-// Значение -1 означает пустой узел
-TreeNode* buildTreeFromArray(int* arr, int n, int index) {
-    if (index >= n || arr[index] == -1) return NULL;
-    TreeNode* node = createNode(arr[index]);
-    node->left = buildTreeFromArray(arr, n, 2 * index + 1);
-    node->right = buildTreeFromArray(arr, n, 2 * index + 2);
-    return node;
-}
-
-void insertBST(TreeNode** root, int key) {
-    if (!*root) {
-        *root = createNode(key);
-        return;
-    }
-    if (key < (*root)->key)
-        insertBST(&(*root)->left, key);
-    else
-        insertBST(&(*root)->right, key);
-}
-
 /*
 ---------------1---------------
 -------1---------------1-------
