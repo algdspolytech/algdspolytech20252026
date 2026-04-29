@@ -1,8 +1,9 @@
-#include "graph_coloring.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(){
+#include "graph_coloring.h"
+
+int main() {
     Graph* g = NULL;
     int K;
     if (!readGraphFromFile("input.txt", &g, &K)) {
@@ -15,22 +16,21 @@ int main(){
         freeGraph(g);
         return 1;
     }
-    for (int i = 0; i < g->n; i++){
+    for (int i = 0; i < g->n; i++) {
         colors[i] = 0;
     }
 
     bool coloringSuccess = graphColoring(g, K, colors);
 
-    if (!writeResultToFile("output.txt", colors, g->n, coloringSuccess)){
+    if (!writeResultToFile("output.txt", colors, g->n, coloringSuccess)) {
         printf("Error writing into output file");
         free(colors);
         freeGraph(g);
         return 1;
     }
 
-
     free(colors);
     freeGraph(g);
-    
+
     return 0;
 }
