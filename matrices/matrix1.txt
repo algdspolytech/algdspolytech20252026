@@ -1,0 +1,7 @@
+6
+0 3 5 inf inf 15
+3 0 inf 4 inf inf
+5 inf 0 2 inf inf 
+inf 4 2 0 3 6
+inf inf inf 3 0 4
+15 inf inf 6 4 0
